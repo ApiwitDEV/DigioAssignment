@@ -2,10 +2,9 @@ package com.example.digioassignment.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.digioassignment.R
-import com.example.digioassignment.data.localDataSource.FoodDatabase
 import com.example.digioassignment.databinding.ActivityMainBinding
 import com.example.digioassignment.data.remoteDataSource.RemoteData
 import com.example.digioassignment.data.remoteDataSource.RetrofitService
@@ -17,10 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private lateinit var dataViewModel : DataViewModel //by viewModels() is not used
+    private val dataViewModel : DataViewModel by lazy {
+        ViewModelProvider(this).get(DataViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
 
         val retrofitService : RetrofitService = Retrofit.Builder()
             .baseUrl("https://hf-android-app.s3-eu-west-1.amazonaws.com/")
@@ -29,12 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         val remoteData = RemoteData(retrofitService)
         val repositories = Repositories(remoteData,baseContext)
-        dataViewModel = DataViewModel(repositories)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.lifecycleOwner = this
-        binding.viewModel = dataViewModel
-
-        binding.adapter = FoodListAdapter(dataViewModel)
+        repositories.load(binding,dataViewModel)
     }
 }
