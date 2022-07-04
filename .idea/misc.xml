@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/BAS-PC/Desktop/DigioAssignment/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2915" />
+        <entry key="..\:/Users/BAS-PC/Desktop/DigioAssignment/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2915" />
+        <entry key="..\:/Users/BAS-PC/Desktop/DigioAssignment/app/src/main/res/drawable/image_shape.xml" value="0.2915" />
         <entry key="..\:/Users/BAS-PC/Desktop/DigioAssignment/app/src/main/res/layout/activity_main.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/BAS-PC/Desktop/DigioAssignment/app/src/main/res/layout/content_main.xml" value="0.2015625" />
+        <entry key="..\:/Users/BAS-PC/Desktop/DigioAssignment/app/src/main/res/layout/item.xml" value="0.21138211382113822" />
       </map>
     </option>
   </component>
