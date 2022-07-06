@@ -22,19 +22,22 @@ class Repositories(
     private fun getDataFromNetwork() : Call<DataModel> {
         return remoteData.retrofitService.getFood()
     }
-    private fun getDataFromDatabase() : List<FoodModelItem> {
+    fun getDataFromDatabase() : List<FoodModelItem> {
         return db.foodDao().getAll()
     }
-    private fun insertDataToDatabase(foodItem: FoodModelItem) {
+    fun insertDataToDatabase(foodItem: FoodModelItem) {
         db.foodDao().inset(foodItem)
     }
     fun updateDataToDatabase(foodItem: FoodModelItem) {
         db.foodDao().update(foodItem)
     }
+    fun getFavoriteItem() : List<FoodModelItem> {
+        return db.foodDao().selectFavorite()
+    }
 
     fun load(binding: ActivityMainBinding,dataViewModel: DataViewModel) {
         if (getDataFromDatabase().isEmpty()) {
-            Toast.makeText(context,"DATABASE EMPTY", Toast.LENGTH_LONG).show()
+            Toast.makeText(context,"SAVE DATA FROM API TO LOCAL DATASET", Toast.LENGTH_LONG).show()
             getDataFromNetwork().enqueue(object : Callback<DataModel> {
                 override fun onResponse(
                     call: Call<DataModel>,
@@ -43,6 +46,7 @@ class Repositories(
                     if (response.isSuccessful) {
                         val items = response.body()!! as ArrayList<FoodModelItem>
                         dataViewModel.setData(items)
+                        dataViewModel.chooseDataset(3)
                         binding.adapter = FoodListAdapter(dataViewModel)
                         for (i in items) {
                             val item = FoodModelItem(
@@ -63,6 +67,7 @@ class Repositories(
         }
         else {
             dataViewModel.setData(getDataFromDatabase() as ArrayList<FoodModelItem>)
+            dataViewModel.chooseDataset(0)
             binding.adapter = FoodListAdapter(dataViewModel)
         }
     }

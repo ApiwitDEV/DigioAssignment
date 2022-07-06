@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/filter"
+        android:title="filter"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:contentDescription="content_description_favorite"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/all"
+                android:title="แสดงรายการทั้งหมด"
+                />
+            <item
+                android:id="@+id/favoriteOnly"
+                android:title="แสดงเฉพาะรายการที่ชื่นชอบ"
+                android:icon="@drawable/ic_baseline_favorite_24"
+                />
+            <item
+                android:id="@+id/cal"
+                android:title="แสดงตามลำดับแคลลอลี่จากน้อยไปมาก"
+                />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/more"
+        android:title="more"
+        android:contentDescription="content_description_more"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        app:showAsAction="never" />
+</menu>

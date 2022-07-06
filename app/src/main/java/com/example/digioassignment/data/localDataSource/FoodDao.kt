@@ -11,4 +11,6 @@ interface FoodDao {
     fun inset(foodItem: FoodModelItem)
     @Update
     fun update(foodItem: FoodModelItem) : Int
+    @Query("SELECT * FROM FoodTable WHERE favorite = 1")
+    fun selectFavorite() : List<FoodModelItem>
 }

@@ -21,7 +21,7 @@ class FoodListAdapter(private val dataViewModel: DataViewModel) : RecyclerView.A
         holder as FoodListViewHolder
         dataViewModel.position = position
         holder.binding.viewModel = dataViewModel
-        if (dataViewModel.remoteData.value!![position].favorite) {
+        if (dataViewModel.filter.value!![position].favorite) {
             holder.binding.fevorite.setImageResource(R.drawable.ic_baseline_favorite_24)
         }
         else {
@@ -31,14 +31,14 @@ class FoodListAdapter(private val dataViewModel: DataViewModel) : RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return dataViewModel.remoteData.value!!.size
+        return dataViewModel.filter.value!!.size
     }
 
     class FoodListViewHolder(val binding: ItemBinding,var dataViewModel: DataViewModel)
         : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.fevorite.setOnClickListener {
-                val foodItem = dataViewModel.remoteData.value!![adapterPosition]
+                val foodItem = dataViewModel.filter.value!![adapterPosition]
                 if (!foodItem.favorite) {
                     dataViewModel.setFavorite(foodItem,true)
                     binding.fevorite.setImageResource(R.drawable.ic_baseline_favorite_24)

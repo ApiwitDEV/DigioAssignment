@@ -15,9 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-//    private val dataViewModel : DataViewModel by lazy {
-//        ViewModelProvider(this).get(DataViewModel::class.java)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,5 +31,21 @@ class MainActivity : AppCompatActivity() {
         val repositories = Repositories(remoteData,baseContext)
         val dataViewModel = DataViewModel(repositories)
         dataViewModel.repositories.load(binding,dataViewModel)
+
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.favoriteOnly -> {
+                    dataViewModel.chooseDataset(1)
+                    binding.adapter!!.notifyDataSetChanged()
+                    true
+                }
+                R.id.all -> {
+                    dataViewModel.chooseDataset(0)
+                    binding.adapter!!.notifyDataSetChanged()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

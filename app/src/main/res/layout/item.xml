@@ -29,7 +29,7 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    setImage="@{viewModel.remoteData.get(viewModel.position).image}"
+                    setImage="@{viewModel.filter.get(viewModel.position).image}"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/image_shape"
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@{viewModel.remoteData.get(viewModel.position).name}"
+                    android:text="@{viewModel.filter.get(viewModel.position).name}"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -56,7 +56,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.remoteData.get(viewModel.position).calories}"
+                    android:text="@{viewModel.filter.get(viewModel.position).calories}"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
