@@ -3,7 +3,6 @@ package com.example.digioassignment.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.digioassignment.R
 import com.example.digioassignment.databinding.ActivityMainBinding
 import com.example.digioassignment.data.remoteDataSource.RemoteData
@@ -16,9 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private val dataViewModel : DataViewModel by lazy {
-        ViewModelProvider(this).get(DataViewModel::class.java)
-    }
+//    private val dataViewModel : DataViewModel by lazy {
+//        ViewModelProvider(this).get(DataViewModel::class.java)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val remoteData = RemoteData(retrofitService)
         val repositories = Repositories(remoteData,baseContext)
-        repositories.load(binding,dataViewModel)
+        val dataViewModel = DataViewModel(repositories)
+        dataViewModel.repositories.load(binding,dataViewModel)
     }
 }

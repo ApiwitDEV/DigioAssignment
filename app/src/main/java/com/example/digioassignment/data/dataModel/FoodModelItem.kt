@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "FoodTable")
 data class FoodModelItem(
-    @ColumnInfo var calories: String,
+    @ColumnInfo val calories: String,
     @ColumnInfo val carbos: String,
-    @ColumnInfo val country: String,
+    @ColumnInfo val country: String?,
     @ColumnInfo val description: String,
     @ColumnInfo val difficulty: Int,
     @ColumnInfo val fats: String,
@@ -18,5 +18,6 @@ data class FoodModelItem(
     @ColumnInfo val name: String,
     @ColumnInfo val proteins: String,
     @ColumnInfo val thumb: String,
-    @ColumnInfo val time: String
+    @ColumnInfo val time: String,
+    @ColumnInfo var favorite: Boolean
 )

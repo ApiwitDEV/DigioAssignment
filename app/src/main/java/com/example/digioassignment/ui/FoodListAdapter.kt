@@ -2,7 +2,6 @@ package com.example.digioassignment.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.drawToBitmap
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digioassignment.R
@@ -15,15 +14,18 @@ class FoodListAdapter(private val dataViewModel: DataViewModel) : RecyclerView.A
         val binding: ItemBinding = DataBindingUtil
             .inflate(inflater, R.layout.item,parent,false)
 
-        return FoodListViewHolder(binding)
+        return FoodListViewHolder(binding,dataViewModel)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as FoodListViewHolder
         dataViewModel.position = position
         holder.binding.viewModel = dataViewModel
-        holder.binding.fevorite.setOnClickListener {
+        if (dataViewModel.remoteData.value!![position].favorite) {
             holder.binding.fevorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+        }
+        else {
+            holder.binding.fevorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
         }
         holder.binding.executePendingBindings()
     }
@@ -32,7 +34,20 @@ class FoodListAdapter(private val dataViewModel: DataViewModel) : RecyclerView.A
         return dataViewModel.remoteData.value!!.size
     }
 
-    class FoodListViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    class FoodListViewHolder(val binding: ItemBinding,var dataViewModel: DataViewModel)
+        : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.fevorite.setOnClickListener {
+                val foodItem = dataViewModel.remoteData.value!![adapterPosition]
+                if (!foodItem.favorite) {
+                    dataViewModel.setFavorite(foodItem,true)
+                    binding.fevorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                }
+                else {
+                    dataViewModel.setFavorite(foodItem,false)
+                    binding.fevorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                }
+            }
+        }
     }
 }

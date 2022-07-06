@@ -25,8 +25,11 @@ class Repositories(
     private fun getDataFromDatabase() : List<FoodModelItem> {
         return db.foodDao().getAll()
     }
-    private fun insertDataToDatabase(item: FoodModelItem) {
-        db.foodDao().inset(item)
+    private fun insertDataToDatabase(foodItem: FoodModelItem) {
+        db.foodDao().inset(foodItem)
+    }
+    fun updateDataToDatabase(foodItem: FoodModelItem) {
+        db.foodDao().update(foodItem)
     }
 
     fun load(binding: ActivityMainBinding,dataViewModel: DataViewModel) {
@@ -43,9 +46,9 @@ class Repositories(
                         binding.adapter = FoodListAdapter(dataViewModel)
                         for (i in items) {
                             val item = FoodModelItem(
-                                i.calories,i.carbos,"i.country",i.description,
+                                i.calories,i.carbos,i.country,i.description,
                                 i.difficulty,i.fats,i.headline,i.id,i.image,
-                                i.name,i.proteins,i.thumb,i.time
+                                i.name,i.proteins,i.thumb,i.time,false
                             )
                             insertDataToDatabase(item)
                         }
