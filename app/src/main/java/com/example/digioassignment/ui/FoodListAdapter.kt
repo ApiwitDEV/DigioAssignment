@@ -37,6 +37,7 @@ class FoodListAdapter(private val dataViewModel: DataViewModel) : RecyclerView.A
     class FoodListViewHolder(val binding: ItemBinding,var dataViewModel: DataViewModel)
         : RecyclerView.ViewHolder(binding.root) {
         init {
+            binding.eventHandle = EventHandle()
             binding.fevorite.setOnClickListener {
                 val foodItem = dataViewModel.filter.value!![adapterPosition]
                 if (!foodItem.favorite) {

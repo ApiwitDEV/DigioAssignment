@@ -1,5 +1,6 @@
 package com.example.digioassignment.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,5 +38,9 @@ class DataViewModel(val repositories: Repositories) : ViewModel() {
         else {
             _filter.value = _remoteData.value
         }
+    }
+
+    fun itemOnClick() {
+        Log.i("BAS","OK")
     }
 }
